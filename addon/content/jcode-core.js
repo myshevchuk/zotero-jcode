@@ -67,6 +67,30 @@ export function parseTsv(text) {
   return { rows, warnings };
 }
 
+const JCODE_PREFIX = "jcode:";
+
+function isJcodeLine(line) {
+  return line.startsWith(JCODE_PREFIX);
+}
+
+export function mergeJcodeIntoExtra(extra, abbreviation) {
+  const newLine = `${JCODE_PREFIX} ${abbreviation}`;
+  const lines = splitLines(extra);
+  while (lines.length > 0 && lines[lines.length - 1] === "") {
+    lines.pop();
+  }
+
+  const firstJcode = lines.findIndex(isJcodeLine);
+  if (firstJcode === -1) {
+    if (lines.length === 0) return newLine;
+    lines.push(newLine);
+  } else {
+    lines[firstJcode] = newLine;
+  }
+
+  return lines.join("\n");
+}
+
 export function buildLookup(rows) {
   const lookup = new Map();
   const warnings = [];
