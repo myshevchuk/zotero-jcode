@@ -91,6 +91,22 @@ export function mergeJcodeIntoExtra(extra, abbreviation) {
   return lines.join("\n");
 }
 
+export function classifyItem(item, lookup) {
+  const publicationTitle = item.publicationTitle;
+  if (!publicationTitle || publicationTitle.trim() === "") {
+    return { kind: "no-title" };
+  }
+  if (!lookup.has(publicationTitle)) {
+    return { kind: "no-match", publicationTitle };
+  }
+  const abbreviation = lookup.get(publicationTitle);
+  return {
+    kind: "updated",
+    abbreviation,
+    nextExtra: mergeJcodeIntoExtra(item.extra ?? "", abbreviation),
+  };
+}
+
 export function buildLookup(rows) {
   const lookup = new Map();
   const warnings = [];
