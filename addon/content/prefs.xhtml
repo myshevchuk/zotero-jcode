@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+  Preferences pane for the Journal Code plugin (spec req 9). Registered
+  from bootstrap.js via Zotero.PreferencePanes.register, which inlines this
+  XHTML fragment into the Settings dialog. Strings come from
+  locale/en-US/jcode.ftl; the actual file picker / reset wiring lives in
+  the inline <script> below so we don't ship a second JS file just for two
+  click handlers.
+-->
+<vbox xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml">
+  <html:div data-l10n-id="jcode-prefs-tsv-path-description"
+            style="margin-bottom: 8px;"></html:div>
+
+  <html:label for="jcode-tsv-path"
+              data-l10n-id="jcode-prefs-tsv-path-label"></html:label>
+
+  <html:div style="display: flex; gap: 6px; align-items: center;">
+    <html:input type="text"
+                id="jcode-tsv-path"
+                preference="extensions.zotero.jcode.tsvPath"
+                style="flex: 1;"/>
+    <html:button id="jcode-tsv-browse"
+                 data-l10n-id="jcode-prefs-tsv-path-browse"></html:button>
+    <html:button id="jcode-tsv-reset"
+                 data-l10n-id="jcode-prefs-tsv-path-reset"></html:button>
+  </html:div>
+
+  <html:script>
+    <![CDATA[
+      (function () {
+        const PREF = "extensions.zotero.jcode.tsvPath";
+        const input = document.getElementById("jcode-tsv-path");
+        const browse = document.getElementById("jcode-tsv-browse");
+        const reset = document.getElementById("jcode-tsv-reset");
+
+        browse.addEventListener("command", async () => {
+          const fp = new FilePicker();
+          fp.init(window, "Select journal table TSV", fp.modeOpen);
+          fp.appendFilter("TSV", "*.tsv");
+          fp.appendFilters(fp.filterAll);
+          const result = await fp.show();
+          if (result === fp.returnOK || result === fp.returnReplace) {
+            Zotero.Prefs.set(PREF, fp.file, true);
+            input.value = fp.file;
+          }
+        });
+
+        reset.addEventListener("command", () => {
+          Zotero.Prefs.clear(PREF, true);
+          input.value = "";
+        });
+      })();
+    ]]>
+  </html:script>
+</vbox>
