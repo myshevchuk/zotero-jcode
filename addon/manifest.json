@@ -9,6 +9,5 @@
       "strict_min_version": "7.0",
       "strict_max_version": "9.0.*"
     }
-  },
-  "default_locale": "en-US"
+  }
 }
