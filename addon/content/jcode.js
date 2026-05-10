@@ -14,7 +14,7 @@ export function invalidateLookupCache() {
   cachedLookup = null;
 }
 
-async function readTsvText(rootURI) {
+async function readTsvText(_rootURI) {
   const overridePath = Zotero.Prefs.get(PREF_TSV_PATH, true) || "";
   if (overridePath) {
     try {
@@ -26,7 +26,15 @@ async function readTsvText(rootURI) {
       );
     }
   }
-  return await Zotero.File.getContentsAsync(rootURI + BUNDLED_TSV);
+  // Read the bundled TSV via the chrome package registered by
+  // bootstrap.js. Going through `fetch` against a chrome: URI works
+  // regardless of whether the .xpi is unpacked, sidestepping Zotero 9's
+  // broken jar: handler.
+  const response = await fetch("chrome://jcode/content/data/journal_titles.tsv");
+  if (!response.ok) {
+    throw new Error(`bundled TSV fetch failed: HTTP ${response.status}`);
+  }
+  return await response.text();
 }
 
 export async function loadLookup(rootURI) {

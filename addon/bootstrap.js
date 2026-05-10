@@ -25,6 +25,7 @@ const ZOTERO_PANE_URI = "chrome://zotero/content/zoteroPane.xhtml";
 let rootURIGlobal = null;
 let prefObserverId = null;
 let windowListener = null;
+let chromeHandle = null;
 const installedWindows = new Set();
 
 function log(msg) {
@@ -146,6 +147,33 @@ function detachWindowListener() {
   }
 }
 
+function registerChromePackage(rootURI) {
+  // Register a chrome:// URI namespace pointing at the .xpi root, so
+  // anything inside the package can be loaded via
+  //   chrome://jcode/content/<path-relative-to-xpi-root>
+  // This sidesteps Zotero 9's broken jar: URI fetcher (which returns
+  // 500 for both data files and the prefs-pane XHTML when accessed
+  // directly via rootURI + path).
+  const aomStartup = Components.classes[
+    "@mozilla.org/addons/addon-manager-startup;1"
+  ].getService(Components.interfaces.amIAddonManagerStartup);
+  const manifestURI = Services.io.newURI(
+    "manifest.json",
+    null,
+    Services.io.newURI(rootURI),
+  );
+  chromeHandle = aomStartup.registerChrome(manifestURI, [
+    ["content", "jcode", ""],
+  ]);
+}
+
+function unregisterChromePackage() {
+  if (chromeHandle) {
+    try { chromeHandle.destruct(); } catch (_) {}
+    chromeHandle = null;
+  }
+}
+
 function loadDefaultPrefs(rootURI) {
   Services.scriptloader.loadSubScript(`${rootURI}prefs.js`, {
     pref: (name, value) => {
@@ -156,10 +184,10 @@ function loadDefaultPrefs(rootURI) {
   });
 }
 
-async function registerPreferencePane(rootURI) {
+async function registerPreferencePane(_rootURI) {
   await Zotero.PreferencePanes.register({
     pluginID: PLUGIN_ID,
-    src: `${rootURI}content/prefs.xhtml`,
+    src: "chrome://jcode/content/content/prefs.xhtml",
     label: "Journal Code",
   });
 }
@@ -187,6 +215,12 @@ function uninstall(_data, _reason) {}
 async function startup({ id, version, rootURI }, _reason) {
   log(`startup: id=${id} version=${version} rootURI=${rootURI}`);
   rootURIGlobal = rootURI;
+  try {
+    registerChromePackage(rootURI);
+    log("startup: chrome package registered");
+  } catch (err) {
+    log(`startup: registerChromePackage failed: ${err}`);
+  }
   try {
     loadDefaultPrefs(rootURI);
     log("startup: default prefs loaded");
@@ -227,5 +261,6 @@ function shutdown(_data, _reason) {
   try {
     invalidateLookupCache();
   } catch (_) {}
+  unregisterChromePackage();
   rootURIGlobal = null;
 }
