@@ -66,3 +66,21 @@ export function parseTsv(text) {
 
   return { rows, warnings };
 }
+
+export function buildLookup(rows) {
+  const lookup = new Map();
+  const warnings = [];
+
+  for (const row of rows) {
+    const { title, abbreviation } = row;
+    if (lookup.has(title)) {
+      warnings.push(
+        `buildLookup: duplicate title "${title}" — using "${abbreviation}" ` +
+          `and discarding earlier "${lookup.get(title)}"`,
+      );
+    }
+    lookup.set(title, abbreviation);
+  }
+
+  return { lookup, warnings };
+}
