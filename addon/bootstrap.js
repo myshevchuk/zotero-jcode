@@ -128,8 +128,6 @@ async function registerPreferencePane(rootURI) {
     pluginID: PLUGIN_ID,
     src: `${rootURI}content/prefs.xhtml`,
     label: "Journal Code",
-    image: undefined,
-    helpURL: undefined,
   });
 }
 
