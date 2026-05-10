@@ -91,6 +91,31 @@ export function mergeJcodeIntoExtra(extra, abbreviation) {
   return lines.join("\n");
 }
 
+export function buildSummaryMessage({
+  updated,
+  noMatch,
+  noTitle,
+  unmatchedTitles,
+}) {
+  const clauses = [`${updated} updated`];
+  if (noMatch > 0) clauses.push(`${noMatch} skipped (no match)`);
+  if (noTitle > 0) clauses.push(`${noTitle} skipped (no publication title)`);
+
+  const lines = [clauses.join(", ")];
+  const uniqueTitles = [...new Set(unmatchedTitles)];
+  if (uniqueTitles.length > 0) {
+    lines.push("Unmatched titles:");
+    for (const title of uniqueTitles) {
+      lines.push(`  ${title}`);
+    }
+  }
+
+  return {
+    title: "Journal Code",
+    body: lines.join("\n"),
+  };
+}
+
 export function classifyItem(item, lookup) {
   const publicationTitle = item.publicationTitle;
   if (!publicationTitle || publicationTitle.trim() === "") {
