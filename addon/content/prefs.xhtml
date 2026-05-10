@@ -1,61 +1,30 @@
 <?xml version="1.0"?>
 <!--
-  Preferences pane for the Journal Code plugin (spec req 9). Registered
-  from bootstrap.js via Zotero.PreferencePanes.register, which inlines this
-  XHTML fragment into the Settings dialog.
-
-  Strings are inlined here rather than referenced via Fluent because the
-  plugin doesn't register an FTL source with Zotero's L10nRegistry. The
-  jcode.ftl file under locale/en-US/ is kept as documentation for any
-  future contributor who wires real localization in.
+  Preferences pane for the Journal Code plugin (spec req 9). Loaded by
+  Zotero from chrome://jcode/content/content/prefs.xhtml; the matching
+  script is at chrome://jcode/content/content/prefs-pane.js (loaded
+  relatively). Inline scripts and CDATA blocks are deliberately avoided
+  because chrome:// CSP can refuse them silently.
 -->
-<vbox xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml">
-  <html:p style="margin-bottom: 8px;">
+<vbox xmlns="http://www.w3.org/1999/xhtml"
+      id="zotero-prefpane-jcode"
+      style="display: flex; flex-direction: column; gap: 8px; padding: 16px;">
+  <p style="margin: 0;">
     Leave the path empty to use the table bundled with the plugin.
     Set a path on disk to override with your own TSV.
-  </html:p>
+  </p>
 
-  <html:label for="jcode-tsv-path">Custom journal table (TSV) path</html:label>
+  <label for="jcode-tsv-path" style="font-weight: bold;">
+    Custom journal table (TSV) path
+  </label>
 
-  <html:div style="display: flex; gap: 6px; align-items: center;">
-    <html:input type="text"
-                id="jcode-tsv-path"
-                preference="extensions.zotero.jcode.tsvPath"
-                style="flex: 1;"/>
-    <html:button id="jcode-tsv-browse">Browse&#x2026;</html:button>
-    <html:button id="jcode-tsv-reset">Reset to bundled default</html:button>
-  </html:div>
+  <div style="display: flex; gap: 6px; align-items: center;">
+    <input id="jcode-tsv-path"
+           type="text"
+           style="flex: 1; padding: 4px;"/>
+    <button id="jcode-tsv-browse">Browse&#x2026;</button>
+    <button id="jcode-tsv-reset">Reset to bundled default</button>
+  </div>
 
-  <html:script>
-    <![CDATA[
-      (function () {
-        const PREF = "extensions.zotero.jcode.tsvPath";
-        const input = document.getElementById("jcode-tsv-path");
-        const browse = document.getElementById("jcode-tsv-browse");
-        const reset = document.getElementById("jcode-tsv-reset");
-
-        browse.addEventListener("click", async () => {
-          const Cc = Components.classes;
-          const Ci = Components.interfaces;
-          const fp = Cc["@mozilla.org/filepicker;1"]
-            .createInstance(Ci.nsIFilePicker);
-          fp.init(window, "Select journal table TSV", Ci.nsIFilePicker.modeOpen);
-          fp.appendFilter("TSV", "*.tsv");
-          fp.appendFilters(Ci.nsIFilePicker.filterAll);
-          const code = await new Promise((resolve) => fp.open(resolve));
-          if (code === Ci.nsIFilePicker.returnOK ||
-              code === Ci.nsIFilePicker.returnReplace) {
-            const path = fp.file.path;
-            Zotero.Prefs.set(PREF, path, true);
-            input.value = path;
-          }
-        });
-
-        reset.addEventListener("click", () => {
-          Zotero.Prefs.clear(PREF, true);
-          input.value = "";
-        });
-      })();
-    ]]>
-  </html:script>
+  <script src="prefs-pane.js"></script>
 </vbox>
