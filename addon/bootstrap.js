@@ -1,60 +1,95 @@
 // Bootstrap entry point for the Journal Code plugin (Zotero 7+).
 // Loaded by Zotero with `Zotero` and `Services` already in scope.
 //
-// Responsibilities (kept thin per the design's pure/glue split):
-//   - install/startup/shutdown/uninstall lifecycle hooks
-//   - dynamic-import the ESM adapter (content/jcode.js) once at startup
-//   - register the preferences pane
-//   - listen for new Zotero windows; install / uninstall the menu item and
-//     keyboard shortcut into each one
-//   - on shutdown, remove every UI element we added so disable+enable
-//     leaves no duplicates (spec req 10)
+// At build time, build.sh prepends the contents of content/jcode-core.js
+// and content/jcode.js (with `export` and the cross-file `import`
+// stripped), so all of the following are top-level functions in this
+// file's scope by the time install/startup/shutdown run:
+//   - Pure: parseTsv, buildLookup, mergeJcodeIntoExtra, classifyItem,
+//           buildSummaryMessage, shouldShowMenu
+//   - Adapter: loadLookup, run, invalidateLookupCache
+//
+// Bundling avoids dynamic ESM `import()` from a `jar:` URI, which is
+// brittle in Gecko (Zotero 9 / Gecko 140 silently rejects it).
 
-/* global Zotero, Services, ChromeUtils */
+/* global Zotero, Services, Components */
+/* global parseTsv, buildLookup, mergeJcodeIntoExtra, classifyItem,
+   buildSummaryMessage, shouldShowMenu,
+   loadLookup, run, invalidateLookupCache */
 
 const PLUGIN_ID = "jcode@zotero-jcode.local";
 const MENUITEM_ID = "zotero-jcode-menuitem";
 const KEY_ID = "zotero-jcode-key";
 const ZOTERO_PANE_URI = "chrome://zotero/content/zoteroPane.xhtml";
 
-let adapter = null;
 let rootURIGlobal = null;
 let prefObserverId = null;
 let windowListener = null;
 const installedWindows = new Set();
 
+function log(msg) {
+  try {
+    Zotero.debug(`[jcode] ${msg}`);
+  } catch (_) {
+    // Zotero might not be ready yet; ignore.
+  }
+}
+
 function isZoteroWindow(window) {
-  return window.location?.href === ZOTERO_PANE_URI;
+  return window?.location?.href === ZOTERO_PANE_URI;
 }
 
 function installIntoWindow(window) {
-  if (!isZoteroWindow(window) || installedWindows.has(window)) return;
+  if (!isZoteroWindow(window)) {
+    log(`installIntoWindow: skipping non-Zotero window (${window?.location?.href})`);
+    return;
+  }
+  if (installedWindows.has(window)) {
+    log("installIntoWindow: already installed in this window");
+    return;
+  }
 
   const doc = window.document;
   const itemMenu = doc.getElementById("zotero-itemmenu");
-  if (!itemMenu) return;
+  if (!itemMenu) {
+    log("installIntoWindow: #zotero-itemmenu not found; menu not added");
+    return;
+  }
 
   const menuitem = doc.createXULElement("menuitem");
   menuitem.id = MENUITEM_ID;
   menuitem.setAttribute("label", "Add Journal Code");
-  menuitem.addEventListener("command", () => adapter.run(window, rootURIGlobal));
+  menuitem.addEventListener("command", () => {
+    log("menuitem: command fired");
+    run(window, rootURIGlobal);
+  });
   itemMenu.appendChild(menuitem);
+  log("installIntoWindow: menu item appended");
 
   const popupHandler = () => {
-    const count = window.ZoteroPane.getSelectedItems().length;
-    menuitem.hidden = !adapter.shouldShowMenu(count);
+    const count = window.ZoteroPane?.getSelectedItems?.().length ?? 0;
+    menuitem.hidden = !shouldShowMenu(count);
   };
   itemMenu.addEventListener("popupshowing", popupHandler);
 
-  const keyset = doc.getElementById("mainKeyset") || doc.querySelector("keyset");
+  const keyset = doc.getElementById("mainKeyset")
+    || doc.querySelector("keyset")
+    || doc.documentElement;
   let key = null;
-  if (keyset) {
+  try {
     key = doc.createXULElement("key");
     key.id = KEY_ID;
     key.setAttribute("key", "J");
     key.setAttribute("modifiers", "accel,alt");
-    key.addEventListener("command", () => adapter.run(window, rootURIGlobal));
+    key.addEventListener("command", () => {
+      log("key: command fired");
+      run(window, rootURIGlobal);
+    });
     keyset.appendChild(key);
+    log(`installIntoWindow: key appended to ${keyset.tagName}#${keyset.id || "(no id)"}`);
+  } catch (err) {
+    log(`installIntoWindow: failed to attach key: ${err}`);
+    key = null;
   }
 
   installedWindows.add(window);
@@ -70,14 +105,14 @@ function uninstallFromWindow(window) {
   try {
     window._jcodeCleanup?.();
   } catch (err) {
-    Zotero?.debug?.(`[jcode] cleanup failed: ${err}`);
+    log(`uninstallFromWindow: cleanup failed: ${err}`);
   }
   delete window._jcodeCleanup;
   installedWindows.delete(window);
 }
 
 function forEachOpenZoteroWindow(fn) {
-  const wins = Services.wm.getEnumerator("navigator:browser");
+  const wins = Services.wm.getEnumerator(null);
   while (wins.hasMoreElements()) {
     const w = wins.getNext();
     if (isZoteroWindow(w)) fn(w);
@@ -87,8 +122,7 @@ function forEachOpenZoteroWindow(fn) {
 function attachWindowListener() {
   windowListener = {
     onOpenWindow(xulWindow) {
-      const domWindow = xulWindow
-        .docShell.domWindow;
+      const domWindow = xulWindow.docShell.domWindow;
       domWindow.addEventListener(
         "load",
         function onLoad() {
@@ -99,8 +133,7 @@ function attachWindowListener() {
       );
     },
     onCloseWindow(xulWindow) {
-      const domWindow = xulWindow.docShell.domWindow;
-      uninstallFromWindow(domWindow);
+      uninstallFromWindow(xulWindow.docShell.domWindow);
     },
   };
   Services.wm.addListener(windowListener);
@@ -134,7 +167,7 @@ async function registerPreferencePane(rootURI) {
 function startPrefObserver() {
   prefObserverId = Zotero.Prefs.registerObserver(
     "jcode.tsvPath",
-    () => adapter.invalidateLookupCache(),
+    () => invalidateLookupCache(),
     true,
   );
 }
@@ -152,20 +185,47 @@ function install(_data, _reason) {}
 function uninstall(_data, _reason) {}
 
 async function startup({ id, version, rootURI }, _reason) {
+  log(`startup: id=${id} version=${version} rootURI=${rootURI}`);
   rootURIGlobal = rootURI;
-  loadDefaultPrefs(rootURI);
-  adapter = await import(`${rootURI}content/jcode.js`);
-  await registerPreferencePane(rootURI);
-  startPrefObserver();
-  attachWindowListener();
-  forEachOpenZoteroWindow(installIntoWindow);
+  try {
+    loadDefaultPrefs(rootURI);
+    log("startup: default prefs loaded");
+  } catch (err) {
+    log(`startup: loadDefaultPrefs failed: ${err}`);
+  }
+  try {
+    await registerPreferencePane(rootURI);
+    log("startup: prefs pane registered");
+  } catch (err) {
+    log(`startup: registerPreferencePane failed: ${err}`);
+  }
+  try {
+    startPrefObserver();
+    log("startup: pref observer started");
+  } catch (err) {
+    log(`startup: startPrefObserver failed: ${err}`);
+  }
+  try {
+    attachWindowListener();
+    log("startup: window listener attached");
+  } catch (err) {
+    log(`startup: attachWindowListener failed: ${err}`);
+  }
+  try {
+    forEachOpenZoteroWindow(installIntoWindow);
+    log(`startup: scanned open windows; installed in ${installedWindows.size}`);
+  } catch (err) {
+    log(`startup: forEachOpenZoteroWindow failed: ${err}`);
+  }
 }
 
 function shutdown(_data, _reason) {
+  log("shutdown");
   detachWindowListener();
   stopPrefObserver();
   for (const w of [...installedWindows]) uninstallFromWindow(w);
-  if (adapter?.invalidateLookupCache) adapter.invalidateLookupCache();
-  adapter = null;
+  try {
+    invalidateLookupCache();
+  } catch (_) {}
   rootURIGlobal = null;
 }

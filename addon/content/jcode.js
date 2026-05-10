@@ -3,12 +3,7 @@
 // progress UI). This file holds every reference to `Zotero.*`; the rest of
 // the source tree is testable in plain Node.
 
-import {
-  parseTsv,
-  buildLookup,
-  classifyItem,
-  buildSummaryMessage,
-} from "./jcode-core.js";
+import { parseTsv, buildLookup, classifyItem, buildSummaryMessage } from "./jcode-core.js";
 
 const PREF_TSV_PATH = "extensions.zotero.jcode.tsvPath";
 const BUNDLED_TSV = "data/journal_titles.tsv";

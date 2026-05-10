@@ -11,3 +11,4 @@ node_modules/
 # Editor cruft.
 .DS_Store
 *.swp
+.build/
