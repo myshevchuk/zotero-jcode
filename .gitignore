@@ -1,0 +1,13 @@
+# Per-user Claude Code settings (project shares .claude/settings.json instead).
+.claude/settings.local.json
+
+# Build artifacts.
+*.xpi
+
+# Node — kept out of tree by design (we use only stdlib `node --test`),
+# but ignore in case a contributor adds dependencies.
+node_modules/
+
+# Editor cruft.
+.DS_Store
+*.swp
