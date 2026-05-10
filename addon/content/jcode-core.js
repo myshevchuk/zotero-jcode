@@ -91,6 +91,10 @@ export function mergeJcodeIntoExtra(extra, abbreviation) {
   return lines.join("\n");
 }
 
+export function shouldShowMenu(selectedCount) {
+  return Number.isInteger(selectedCount) && selectedCount >= 1;
+}
+
 export function buildSummaryMessage({
   updated,
   noMatch,
