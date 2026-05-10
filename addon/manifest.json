@@ -6,6 +6,7 @@
   "applications": {
     "zotero": {
       "id": "jcode@zotero-jcode.local",
+      "update_url": "https://zotero-jcode.invalid/updates.json",
       "strict_min_version": "7.0",
       "strict_max_version": "9.0.*"
     }
