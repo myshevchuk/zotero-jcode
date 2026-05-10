@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "name": "Journal Code",
+  "version": "0.1.0",
+  "description": "Tag selected Zotero items with a `jcode:` line in the Extra field, looked up from a configurable journal-abbreviation TSV.",
+  "applications": {
+    "zotero": {
+      "id": "jcode@zotero-jcode.local",
+      "strict_min_version": "7.0",
+      "strict_max_version": "8.0.*"
+    }
+  },
+  "default_locale": "en-US"
+}
