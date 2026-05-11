@@ -46,6 +46,12 @@ a `title` column on the header row. Extra columns (e.g. `shorttitle`)
 are ignored. To go back to the bundled table, click **Reset to bundled
 default**.
 
+> **Workaround while the preferences pane is being fixed for Zotero 9:**
+> set the override directly via **Tools → Run JavaScript** —
+> `Zotero.Prefs.set("extensions.zotero.jcode.tsvPath", "/absolute/path/to/file.tsv")`.
+> To revert to the bundled table:
+> `Zotero.Prefs.clear("extensions.zotero.jcode.tsvPath")`.
+
 ## Develop
 
 This is a TDD project. Pure logic lives in `addon/content/jcode-core.js`
