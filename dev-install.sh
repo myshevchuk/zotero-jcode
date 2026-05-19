@@ -71,6 +71,8 @@ echo "  1. Quit Zotero if it is running."
 echo "  2. In the Zotero Plugins window, remove any prior install of"
 echo "     'Journal Code' from the UI (if it is still listed)."
 echo "  3. Restart Zotero. The plugin loads from .build/ via the proxy."
+echo "  4. Sideloaded (proxy-file) extensions are disabled by default."
+echo "     In Tools -> Plugins, click Enable next to 'Journal Code' once."
 echo
 echo "From here on, the dev loop is:"
 echo "  - Edit files under addon/."
