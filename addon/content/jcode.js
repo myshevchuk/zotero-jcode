@@ -1,7 +1,7 @@
 // Zotero adapter for the Journal Code plugin. Bridges the pure helpers in
 // jcode-core.js to the Zotero runtime (file I/O, preferences, item I/O,
-// progress UI). This file holds every reference to `Zotero.*`; the rest of
-// the source tree is testable in plain Node.
+// debug logging). This file holds every reference to `Zotero.*`; the rest
+// of the source tree is testable in plain Node.
 
 import { parseTsv, buildLookup, classifyItem, buildSummaryMessage } from "./jcode-core.js";
 
@@ -90,22 +90,11 @@ export async function run(window, rootURI) {
       noTitle,
       unmatchedTitles,
     });
-    showProgress(summary);
+    // Summary popup is deferred (see proposal.md → Deferred). The pure
+    // helper still produces a structured message; log it to the debug
+    // pane so unmatched titles and skip counts remain recoverable.
+    Zotero.debug(`[jcode] ${summary.title}: ${summary.body.replace(/\n/g, " | ")}`);
   } catch (err) {
     Zotero.debug(`[jcode] run() failed: ${err}\n${err.stack ?? ""}`);
-    showProgress({
-      title: "Journal Code",
-      body: `Failed: ${err.message ?? err}`,
-    });
   }
-}
-
-function showProgress({ title, body }) {
-  const pw = new Zotero.ProgressWindow({ closeOnClick: true });
-  pw.changeHeadline(title);
-  for (const line of body.split("\n")) {
-    new pw.ItemProgress(null, line).setProgress(100);
-  }
-  pw.show();
-  pw.startCloseTimer(8000);
 }

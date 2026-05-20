@@ -110,17 +110,17 @@ The plugin SHALL register a `<key>` element on each Zotero main window so that p
 
 ### Requirement: Summary feedback after batch
 
-After the batch completes (whether triggered from the menu or the shortcut), the plugin SHALL display a Zotero `ProgressWindow` summarizing the run with three counts: number of items updated, number of items skipped because no matching row was found, and number of items skipped because they had no `publicationTitle`. The summary MUST also surface the unmatched titles so the user can correct or extend the table.
+After the batch completes (whether triggered from the menu or the shortcut), the plugin SHALL write a summary line to the Zotero debug log containing three counts: number of items updated, number of items skipped because no matching row was found, and number of items skipped because they had no `publicationTitle`. The summary MUST also surface any unmatched titles so the user can correct or extend the table by inspecting the debug log. Surfacing the summary through a user-visible popup is deferred to a future change (see proposal.md → Deferred).
 
 #### Scenario: Mixed-outcome batch reports all three counts
 
 - **WHEN** the batch finishes with 2 updates, 1 no-match, and 1 no-title
-- **THEN** the summary message contains `"2 updated, 1 skipped (no match), 1 skipped (no publication title)"` and lists the unmatched title
+- **THEN** the summary line contains `"2 updated, 1 skipped (no match), 1 skipped (no publication title)"` and lists the unmatched title
 
 #### Scenario: All-success batch omits skipped sections gracefully
 
 - **WHEN** the batch finishes with 3 updates and zero skips
-- **THEN** the summary message reports `"3 updated"` and does not produce confusing zero-count clauses
+- **THEN** the summary line reports `"3 updated"` and does not produce confusing zero-count clauses
 
 ### Requirement: Preferences pane
 

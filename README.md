@@ -9,8 +9,8 @@ journal table.
 The repo started as a 33-line snippet (`journal_code.scrpt`) pasted into
 **Tools → Run JavaScript**. That works once but stops the moment a
 journal title isn't in the table — and you lose any unsaved batch.
-This plugin does the same job from a menu / shortcut, skips unknowns
-gracefully, and reports a summary at the end.
+This plugin does the same job from a menu / shortcut and skips unknowns
+gracefully; a per-run summary is written to the Zotero debug log.
 
 ## Install
 
@@ -26,9 +26,17 @@ the `.xpi`.
 1. Select one or more items in the items pane.
 2. Right-click → **Add Journal Code**, or press **Ctrl+Alt+J**
    (**Cmd+Alt+J** on macOS).
-3. A progress popup reports how many items were updated, how many were
-   skipped because their `publicationTitle` had no row in the table, and
-   how many had no `publicationTitle` at all.
+3. Each matched item gains a `jcode:` line in its **Extra** field
+   (visible in the right-hand item details pane). Items whose
+   `publicationTitle` has no row in the table, or no `publicationTitle`
+   at all, are skipped without aborting the batch.
+
+A per-run summary line (`<N> updated, <M> skipped (no match), <K>
+skipped (no publication title)` and any unmatched titles) is written
+to the Zotero debug log — enable **Help → Debug Output Logging** to
+see it. Surfacing the summary as a popup is on the roadmap as an
+opt-in preference (see
+`openspec/changes/add-jcode-plugin/proposal.md` → Deferred).
 
 The plugin **replaces** an existing `jcode:` line in `Extra` rather than
 duplicating it, and preserves every other line verbatim.
@@ -74,12 +82,14 @@ checklist:
    no duplicate appears. Press **Ctrl+Alt+J**; same outcome.
 6. Add `DOI: 10.1/x` and `tex.note: foo` to an Extra field, then run
    the action — only the `jcode:` line is modified.
-7. Select an item with an unknown `publicationTitle`; the popup
-   reports `0 updated, 1 skipped (no match), 0 skipped (no publication
-   title)` and lists the unknown title. Mix matched + unmatched items
-   in one selection — the batch does **not** abort.
-8. Select an item with an empty `publicationTitle`; it's counted as
-   `skipped (no publication title)`.
+7. Select an item with an unknown `publicationTitle`; its `Extra`
+   field is **not** modified and the debug log contains a line
+   `0 updated, 1 skipped (no match), 0 skipped (no publication title)`
+   together with the unknown title. Mix matched + unmatched items in
+   one selection — the batch does **not** abort.
+8. Select an item with an empty `publicationTitle`; the debug log
+   counts it as `skipped (no publication title)` and the item is
+   unchanged.
 9. Set the override path to a tiny custom TSV; the plugin uses it.
    Clear it (Reset); the bundled file is used again.
 10. Disable + re-enable the plugin from the Plugins window without

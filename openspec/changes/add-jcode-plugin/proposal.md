@@ -7,7 +7,7 @@ The repo currently ships `journal_code.scrpt`, a 33-line snippet the user must p
 - Introduce a Zotero 7+ bootstrapped extension (`addon/manifest.json` + `addon/bootstrap.js`) packaged as `zotero-jcode.xpi` via a two-line `build.sh`.
 - Add a "Add Journal Code" entry to the items-pane right-click menu and bind a default keyboard shortcut (Ctrl+Alt+J / Cmd+Alt+J on macOS).
 - Bundle the existing `journal_titles.tsv` inside the `.xpi`; allow the user to override the lookup file via the `extensions.zotero.jcode.tsvPath` preference, exposed in a one-field preferences pane.
-- Make the action survive unknown publication titles: skip the item, keep going, and surface a Zotero `ProgressWindow` summary at the end (`<N> updated, <M> skipped (no match), <K> skipped (no publication title)`).
+- Make the action survive unknown publication titles: skip the item, keep going, and write a summary line to the Zotero debug log (`<N> updated, <M> skipped (no match), <K> skipped (no publication title)`).
 - Replace existing `jcode:` lines in the Extra field in place rather than risking duplicates; preserve all other Extra content verbatim.
 - Split the implementation into a pure-logic core (`addon/content/jcode-core.js`, ESM) and a thin Zotero adapter (`addon/content/jcode.js` + `addon/bootstrap.js`) so every behavior in the spec can be driven by `node --test` unit tests with no Zotero runtime dependency.
 - Retire `journal_code.scrpt` and the `old-do-not-use/` directory once the plugin replaces them; move `journal_titles.tsv` into `addon/data/`.
@@ -29,3 +29,7 @@ The repo currently ships `journal_code.scrpt`, a 33-line snippet the user must p
 - **Removed**: `journal_code.scrpt`, `old-do-not-use/`.
 - **Tooling**: depends on Node ≥ 18 for the test runner (no `node_modules` — uses `node --test` and `node:assert/strict` from stdlib). `zip` is required for `build.sh`.
 - **Runtime dependencies**: Zotero 7+ only; no third-party plugin frameworks (no `zotero-plugin-toolkit`).
+
+## Deferred
+
+- **Configurable summary popup.** A `Zotero.ProgressWindow` summarizing each batch was part of an earlier iteration but proved noisy for single-item operations, which dominate everyday use. The summary is still emitted to the Zotero debug log on every run. A future change should bring back the popup as a user preference (e.g. `extensions.zotero.jcode.showSummary` with options like `always` / `onlyOnSkipsOrErrors` / `never`), gated by the preference and surfaced in the existing preferences pane. The pure helper `buildSummaryMessage` is kept and tested precisely so that re-enabling the popup is a thin adapter change.
