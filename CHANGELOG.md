@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- 23 journals whose names contain `&` (e.g. *ACS Applied Materials &
+  Interfaces*, *Bioorganic & Medicinal Chemistry*, *Energy &
+  Environmental Science*) now match. The bundled TSV carried them with
+  the LaTeX escape `\&`, which never matched the bare `&` Zotero stores
+  in `publicationTitle`, so the action silently counted those items as
+  no-match.
+- Stray trailing tabs on the `CPNAC-` row of the bundled TSV.
+
 ## [1.0.0] - 2026-05-20 - Initial release
 
 ### Added

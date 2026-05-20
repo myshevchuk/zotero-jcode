@@ -18,7 +18,7 @@ ACQ	Actualite Chimique	Actual. Chim.
 ACR	Accounts of Chemical Research	Acc. Chem. Res.
 ACS	Acta Chemica Scandinavica	Acta Chem. Scand.
 ACSAEM	ACS Applied Energy Materials	ACS Appl. Energy Mater.
-ACSAMI	ACS Applied Materials \& Interfaces	ACS Appl. Mater. Interfaces
+ACSAMI	ACS Applied Materials & Interfaces	ACS Appl. Mater. Interfaces
 ACSC	ACS Catalysis	ACS Catal.
 ACSCB	ACS Chemical Biology	ACS Chem. Biol.
 ACSCS	ACS Combinatorial Science	ACS Comb. Sci.
@@ -27,8 +27,8 @@ ACSEL	ACS Energy Letters	ACS Energy Lett.
 ACSMCL	ACS Medicinal Chemistry Letters	ACS Med. Chem. Lett.
 ACSN	ACS Nano	ACS Nano
 ACSO	ACS Omega	ACS Omega
-ACSPTS	ACS Pharmacology \& Translational Science	ACS Pharmacol. Transl. Sci.
-ACSSCE	ACS Sustainable Chemistry \& Engineering	ACS Sustain. Chem. Eng.
+ACSPTS	ACS Pharmacology & Translational Science	ACS Pharmacol. Transl. Sci.
+ACSSCE	ACS Sustainable Chemistry & Engineering	ACS Sustain. Chem. Eng.
 ACSSS	American Chemical Society Symposium Series	ACS Symp. Ser.
 ADVP	Advances in Pharmacolohy	Adv. Pharm.
 ADVSCI	Advanced Science (Weinheim, Germany)	Adv. Sci. (Weinheim, Ger.)
@@ -51,7 +51,7 @@ APOMC	Applied Organometallic Chemistry	Appl. Organomet. Chem
 ARB	Annual Review of Biochemistry	Annu. Rev. Biochem.
 ARKIVOC	Arkivoc	Arkivoc
 AS	Anaesthesist	Anaesthesist
-ASC-	Advanced Synthesis \& Catalysis	Adv. Synth. Catal.
+ASC-	Advanced Synthesis & Catalysis	Adv. Synth. Catal.
 ASCI	Applied Sciences	Appl. Sci.
 ASS-	Applied Surface Science	Appl. Surf. Sci.
 BB-	Biosensors and Bioelectronics	Biosens. Bioelectron.
@@ -74,11 +74,11 @@ BJ	Biochemical Journal	Biochem. J.
 BJOC	Beilstein Journal of Organic Chemistry	Beilstein J. Org. Chem.
 BKCS	Bulletin of the Korean Chemical Society	Bull. Korean Chem. Soc.
 BLOOD-	Blood	Blood
-BMC	Bioorganic \& Medicinal Chemistry	Bioorg. Med. Chem.
-BMCL	Bioorganic \& Medicinal Chemistry Letters	Bioorg. Med. Chem. Lett.
+BMC	Bioorganic & Medicinal Chemistry	Bioorg. Med. Chem.
+BMCL	Bioorganic & Medicinal Chemistry Letters	Bioorg. Med. Chem. Lett.
 BONE-	Bone	Bone
 BR	Biophysical Reviews	Biophys. Rev.
-BS	Batteries \& Supercaps	Batteries Supercaps
+BS	Batteries & Supercaps	Batteries Supercaps
 BSCB	Bulletin des Sociétés Chimiques Belges	Bull. Soc. Chim. Belg.
 BSCF	Bulletin de la Societe Chimique de France	Bull. Soc. Chim. Fr.
 BTJ	Biotechnology Journal	BTJ
@@ -88,7 +88,7 @@ CAJ	Chemistry—An Asian Journal	Chem. – Asian J.
 CAT	Catalysts	Catalysts
 CB	Chemische Berichte	Chem. Ber.
 CBC	ChemBioChem	ChemBioChem
-CBDD-	Chemical Biology \& Drug Design	Chem. Biol. Drug Des.
+CBDD-	Chemical Biology & Drug Design	Chem. Biol. Drug Des.
 CC	Chemical Communications	Chem. Commun.
 CCADD	Current Computer-Aided Drug Design	Curr. Comput. Aided Drug Des.
 CCC	ChemCatChem	ChemCatChem
@@ -102,14 +102,14 @@ CEC	CrystEngComm	CrystEngComm
 CEJ	Chemistry—A European Journal	Chem. – Eur. J.
 CELL-	Cell	Cell
 CELC	ChemElectroChem	ChemElectroChem
-CEN	Chemical \& Engineering News	Chem. Eng. News
+CEN	Chemical & Engineering News	Chem. Eng. News
 CENJ-	Chemical Engineering Journal	Chem. Eng. J.
 CET	Chemical Engineering and Technology	Chem. Eng. Technol.
 CF-	Combustion and Flame	Combust. Flame
 CG-	Chemical Geology	Chem. Geol.
-CGD	Crystal Growth \& Design	Cryst. Growth Des.
+CGD	Crystal Growth & Design	Cryst. Growth Des.
 CH	Chimia	Chimia
-CHB	Chemistry \& Biology	Chem. Biol.
+CHB	Chemistry & Biology	Chem. Biol.
 CHC	Chemistry of Heterocyclic Compounds	Chem. Heterocycl. Compd.
 CHCH	Carbohydrate Chemistry	Carbohydr. Chem.
 CHEM	Chem	Chem
@@ -118,7 +118,7 @@ CHO	ChemitryOpen	ChemistryOpen
 CHOG	Chimica Oggi	Chim. Oggi
 CHRL	Chirality	Chirality
 CHS	ChemistrySelect	ChemistrySelect
-CIL	Chemistry \& Industry (London)	Chem. Ind. (London)
+CIL	Chemistry & Industry (London)	Chem. Ind. (London)
 CIMB	Current Issues in Molecular Biology	Curr. Issues Mol. Biol.
 CJC	Canadian Journal of Chemistry	Can. J. Chem.
 CJCH	Chinese Journal of Chemistry	Chin. J. Chem.
@@ -130,25 +130,25 @@ CMDC	ChemMedChem	ChemMedChem
 CMEDCIII	Comprehensive Medicinal Chemistry III	Compr. Med. Chem. III
 CMC	Current Medicinal Chemistry	Curr. Med. Chem.
 CMCACA	Current Medicinal Chemistry Anti-Cancer Agents	Curr. Med. Chem. Anti-Cancer Agents
-CMMI	Contrast Media \& Molecular Imaging	Contrast Media Mol. Imaging
+CMMI	Contrast Media & Molecular Imaging	Contrast Media Mol. Imaging
 CNC	Chemistry of Natural Compounds	Chem. Nat. Compd.
 CNCR	Cancer Research	Cancer Res.
 CO	Clinical Oncology	Clin. Oncol.
 COC	Current Organic Chemistry	Curr. Org. Chem.
 COCB	Current Opinion in Chemical Biology	Curr. Opin. Chem. Biol.
 COCIS	Current Opinion in Colloid and Interface Science	Curr. Opin. Colloid Interface Sci.
-CODDD	Current Opinion in Drug Discovery \& Development	Curr. Opin. Drug Discov. Devel.
+CODDD	Current Opinion in Drug Discovery & Development	Curr. Opin. Drug Discov. Devel.
 COGSC	Current Opinion in Green and Sustainable Chemistry	Curr. Opin. Green Sust. Chem.
 COMPPC-	Computer Physics Communications	Comput. Phys. Commun.
 COS	Current Organic Synthesis	Curr. Org. Synth.
 CP	Chemical Physics	Chem. Phys.
-CPB	Chemical \& Pharmaceutical Bulletin	Chem. Pharm. Bull.
+CPB	Chemical & Pharmaceutical Bulletin	Chem. Pharm. Bull.
 CPC	ChemPlusChem	ChemPlusChem
 CPE	Chemical and Process Engineering	Chem. Process Eng.
 CPHC	ChemPhysChem	ChemPhysChem
 CPHTC	ChemPhotoChem	ChemPhotoChem
 CPL-	Chemical Physics Letters	Chem. Phys. Lett
-CPNAC-	Current Protocols in Nucleic Acid Chemistry	Curr. Protoc. Nucleic Acid Chem.		
+CPNAC-	Current Protocols in Nucleic Acid Chemistry	Curr. Protoc. Nucleic Acid Chem.
 CR-	Carbohydrate Research	Carbohydr. Res.
 CRC	Comptes Rendus Chimie	C. R. Chim.
 CRCU	Chemical Research in Chinese Universities	Chem. Res. Chin. Univ.
@@ -160,7 +160,7 @@ CS	Chemical Science	Chem. Sci.
 CS-B-B	Colloids and Surfaces, B: Biointerfaces	Colloids Surf., B
 CSC	Crystal Structure Communications	Cryst. Struct. Commun.
 CSR	Chemical Society Reviews	Chem. Soc. Rev.
-CST	Catalysis Science \& Technology	Catal. Sci. Technol.
+CST	Catalysis Science & Technology	Catal. Sci. Technol.
 CSUSC	ChemSusChem	ChemSusChem
 CT-	Catalysis Today	Catal. Today
 CTMC	Current Topics in Medicinal Chemistry	Curr. Top. Med. Chem.
@@ -183,7 +183,7 @@ ECSEL	ECS Electrochemistry Letters	ECS Electrochem. Lett.
 ECSSL	Electrochemical and Solid-State Letters	Electrochem. Solid-State Lett.
 ECST	ECS Transactions	ECS Trans.
 ECSI-	The Electrochemical Society Interface	Electrochem. Soc. Interface
-EES	Energy \& Environmental Science	Energy Environ. Sci.
+EES	Energy & Environmental Science	Energy Environ. Sci.
 EJIC	European Journal of Inorganic Chemistry	Eur. J. Inorg. Chem.
 EJMC-	European Journal of Medicinal Chemistry	Eur. J. Med. Chem.
 EJMSM	European Journal of Mass Spectrometry	Eur. J. Mass Spectrom.
@@ -192,12 +192,12 @@ EJPS-	European Journal of Pharmaceutical Sciences	Eur. J. Pharm. Sci.
 EML	Electronic Materials Letters	Electron. Mater. Lett.
 EMR	eMagRes	eMagRes
 ENP	Environmental Pollution	Environ. Pollut.
-EODMT	Expert Opinion on Drug Metabolism \& Toxicology	Expert Opin. Drug Metab. Toxicol.
+EODMT	Expert Opinion on Drug Metabolism & Toxicology	Expert Opin. Drug Metab. Toxicol.
 EP	Environmental Progress	Environ. Prog.
 EPJ-	European Polymer Journal	Eur. Polym. J.
 EPL	EPL	EPL
 ESM-	Energy Storage Materials	Energy Storage Mater.
-EST	Environmental Science \& Technology	Environ. Sci. Technol.
+EST	Environmental Science & Technology	Environ. Sci. Technol.
 F1000R	F1000Research	F1000Research
 FC	Frontiers in Chemistry	Front. Chem.
 FD	Faraday Discussions	Faraday Discuss.
@@ -217,7 +217,7 @@ IC	Inorganic Chemistry	Inorg. Chem.
 ICA-	Inorganica Chimica Acta	Inorg. Chim. Acta
 ICC	Inorganic Chemistry Communications	Inorg. Chem. Commun.
 ICF	Inorganic Chemistry Frontiers	Inorg. Chem. Front.
-IECR	Industrial \& Engineering Chemistry Research	Ind. Eng. Chem. Res.
+IECR	Industrial & Engineering Chemistry Research	Ind. Eng. Chem. Res.
 IF	Il Farmaco	Il Farmaco
 IJC	Israel Journal of Chemistry	Isr. J. Chem.
 IJCS	International Journal of Chemical Science	Int. J. Chem. Sci.
@@ -355,8 +355,8 @@ MRC	Magnetic Resonance in Chemistry	Magn. Reson. Chem.
 MRM-	Magnetic Resonance in Medicine	Magn. Reson. Med.
 MRR	Medicinal Research Reviews	Med. Res. Rev
 MRSB	MRS Bulletin	MRS Bull.
-MSE-C-	Material Science \& Engineering, C: Materials for Biological Applications	Mater. Sci. Eng., C
-MSE-R-	Materials Science \& Engineering, R: Reports	Mater. Sci. Eng., R
+MSE-C-	Material Science & Engineering, C: Materials for Biological Applications	Mater. Sci. Eng., C
+MSE-R-	Materials Science & Engineering, R: Reports	Mater. Sci. Eng., R
 MT	Materials Today	Mater. Today
 MTC	Materials Technology	Mater. Technol.
 MTP-	Materials Today Physics	Mater. Today Phys.
@@ -462,7 +462,7 @@ SC	Synthetic Communications	Synth. Commun.
 SCI-	Science	Science
 SCIA	Science Advances	Sci. Adv.
 SCR	Scientific Reports	Sci. Rep.
-SEF	Sustainable Energy \& Fuels	Sustainable Energy Fuels
+SEF	Sustainable Energy & Fuels	Sustainable Energy Fuels
 SEIE	Solvent Extraction and Ion Exchange	Solvent Extr. Ion Exch.
 SEMSC	Solar Energy Materials and Solar Cells	Sol. Energ. Mater. Sol. C.
 SIA	Surface and Interface Analysis	Surf. Interface Anal.
