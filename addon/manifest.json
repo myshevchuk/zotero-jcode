@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Journal Code",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Tag selected Zotero items with a `jcode:` line in the Extra field, looked up from a configurable journal-abbreviation TSV.",
   "applications": {
     "zotero": {
