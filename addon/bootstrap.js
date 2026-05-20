@@ -194,8 +194,12 @@ async function registerPreferencePane(_rootURI) {
 }
 
 function startPrefObserver() {
+  // Pass the full pref name with global=true. Zotero.Prefs.registerObserver
+  // prepends `extensions.zotero.` only when global is false/omitted, but the
+  // observer is keyed on the resulting string and must match the full name
+  // we use everywhere else (`Zotero.Prefs.set("extensions.zotero.jcode...")`).
   prefObserverId = Zotero.Prefs.registerObserver(
-    "jcode.tsvPath",
+    "extensions.zotero.jcode.tsvPath",
     () => invalidateLookupCache(),
     true,
   );
