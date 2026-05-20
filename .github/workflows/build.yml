@@ -20,6 +20,17 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Verify tag matches manifest version (tag pushes only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          TAG="${GITHUB_REF#refs/tags/v}"
+          MANIFEST_VERSION=$(jq -r '.version' addon/manifest.json)
+          if [ "$TAG" != "$MANIFEST_VERSION" ]; then
+            echo "::error::Tag v$TAG does not match manifest.json version $MANIFEST_VERSION. Bump manifest.json before tagging."
+            exit 1
+          fi
+          echo "Tag and manifest agree: $MANIFEST_VERSION"
+
       - name: Run pure-layer tests
         run: npm test
 

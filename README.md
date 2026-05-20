@@ -1,5 +1,7 @@
 # zotero-jcode
 
+[![build](https://github.com/myshevchuk/zotero-jcode/actions/workflows/build.yml/badge.svg)](https://github.com/myshevchuk/zotero-jcode/actions/workflows/build.yml)
+
 A Zotero 7+ plugin that tags selected library items with a `jcode:` line
 in the **Extra** field, looking up the abbreviation from a tab-separated
 journal table.
