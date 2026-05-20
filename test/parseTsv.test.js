@@ -15,12 +15,12 @@ test("parseTsv: well-formed input yields rows keyed by header", async () => {
 
   assert.equal(rows.length, 3);
   assert.deepEqual(rows[0], {
-    abbreviation: "AA",
+    abbreviation: "T-AA",
     title: "Amino Acids",
     shorttitle: "Amino Acids",
   });
   assert.deepEqual(rows[2], {
-    abbreviation: "AC",
+    abbreviation: "T-AC",
     title: "Analytical Chemistry",
     shorttitle: "Anal. Chem.",
   });
