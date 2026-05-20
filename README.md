@@ -108,3 +108,8 @@ modification to plugin behaviour should be authored as a new change
 proposal against the now-canonical spec
 (`openspec change add <name>`, then `openspec archive <name>` once
 manual checks pass).
+
+## License
+
+MIT — see `LICENSE`. Zotero itself is AGPL-3.0; this plugin is a
+separate work loaded at runtime and may carry its own license.
