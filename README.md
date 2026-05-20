@@ -73,7 +73,9 @@ is `bash build.sh` plus a Zotero restart — no `.xpi` install. The
 checklist:
 
 1. `npm test` is green.
-2. `openspec validate add-jcode-plugin --strict` passes.
+2. `openspec validate --specs` passes (validates the live capability
+   spec; while a change proposal is in flight, also run
+   `openspec validate <change-name> --strict`).
 3. `bash build.sh` produces the `.xpi`; `unzip -l zotero-jcode.xpi`
    shows files at the **archive root** (no `addon/` prefix).
 4. Install the `.xpi`. The plugin appears as **Journal Code**, enabled.
@@ -99,8 +101,10 @@ checklist:
 ## Spec
 
 The behaviour pinned down by the test suite is also documented as an
-OpenSpec change at
-`openspec/changes/add-jcode-plugin/specs/jcode-tagging/spec.md`.
-After all manual checks pass, archive the change with
-`openspec archive add-jcode-plugin` to promote the delta into
-`openspec/specs/jcode-tagging/spec.md`.
+OpenSpec capability at `openspec/specs/jcode-tagging/spec.md`. The
+initial change that introduced it lives archived under
+`openspec/changes/archive/2026-05-20-add-jcode-plugin/`. Any future
+modification to plugin behaviour should be authored as a new change
+proposal against the now-canonical spec
+(`openspec change add <name>`, then `openspec archive <name>` once
+manual checks pass).
