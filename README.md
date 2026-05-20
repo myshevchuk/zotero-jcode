@@ -46,12 +46,6 @@ a `title` column on the header row. Extra columns (e.g. `shorttitle`)
 are ignored. To go back to the bundled table, click **Reset to bundled
 default**.
 
-> **Workaround while the preferences pane is being fixed for Zotero 9:**
-> set the override directly via **Tools → Run JavaScript** —
-> `Zotero.Prefs.set("extensions.zotero.jcode.tsvPath", "/absolute/path/to/file.tsv")`.
-> To revert to the bundled table:
-> `Zotero.Prefs.clear("extensions.zotero.jcode.tsvPath")`.
-
 ## Develop
 
 This is a TDD project. Pure logic lives in `addon/content/jcode-core.js`
@@ -63,7 +57,12 @@ npm test
 ```
 
 The Zotero glue (`addon/bootstrap.js`, `addon/content/jcode.js`) is
-verified by hand against a real Zotero install. The checklist:
+verified by hand against a real Zotero install. For an iteration-fast
+loop, `bash dev-install.sh` writes a Mozilla **proxy file** at
+`<profile>/extensions/jcode@zotero-jcode.local` that points at this
+repo's `.build/` directory. After the one-time setup, each iteration
+is `bash build.sh` plus a Zotero restart — no `.xpi` install. The
+checklist:
 
 1. `npm test` is green.
 2. `openspec validate add-jcode-plugin --strict` passes.
