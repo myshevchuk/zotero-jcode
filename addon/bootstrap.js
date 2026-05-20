@@ -189,6 +189,7 @@ async function registerPreferencePane(_rootURI) {
     pluginID: PLUGIN_ID,
     src: "chrome://jcode/content/content/prefs.xhtml",
     label: "Journal Code",
+    scripts: ["chrome://jcode/content/content/prefs-pane.js"],
   });
 }
 

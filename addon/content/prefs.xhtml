@@ -1,30 +1,13 @@
-<?xml version="1.0"?>
-<!--
-  Preferences pane for the Journal Code plugin (spec req 9). Loaded by
-  Zotero from chrome://jcode/content/content/prefs.xhtml; the matching
-  script is at chrome://jcode/content/content/prefs-pane.js (loaded
-  relatively). Inline scripts and CDATA blocks are deliberately avoided
-  because chrome:// CSP can refuse them silently.
--->
-<vbox xmlns="http://www.w3.org/1999/xhtml"
-      id="zotero-prefpane-jcode"
-      style="display: flex; flex-direction: column; gap: 8px; padding: 16px;">
-  <p style="margin: 0;">
-    Leave the path empty to use the table bundled with the plugin.
-    Set a path on disk to override with your own TSV.
-  </p>
+<vbox id="zotero-prefpane-jcode">
+  <html:label>Leave the path empty to use the table bundled with the plugin. Set a path on disk to override with your own TSV.</html:label>
 
-  <label for="jcode-tsv-path" style="font-weight: bold;">
-    Custom journal table (TSV) path
-  </label>
+  <hbox align="center">
+    <html:label for="jcode-tsv-path">Custom journal table (TSV) path:</html:label>
+    <html:input type="text" id="jcode-tsv-path"></html:input>
+  </hbox>
 
-  <div style="display: flex; gap: 6px; align-items: center;">
-    <input id="jcode-tsv-path"
-           type="text"
-           style="flex: 1; padding: 4px;"/>
-    <button id="jcode-tsv-browse">Browse&#x2026;</button>
-    <button id="jcode-tsv-reset">Reset to bundled default</button>
-  </div>
-
-  <script src="prefs-pane.js"></script>
+  <hbox>
+    <button id="jcode-tsv-browse" label="Browse..."/>
+    <button id="jcode-tsv-reset" label="Reset to bundled default"/>
+  </hbox>
 </vbox>
