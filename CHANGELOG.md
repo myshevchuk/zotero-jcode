@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-06-14
+
 ### Added
 
 - Hash (`#`) icon next to the *Add Journal Code* context-menu entry.
@@ -59,5 +61,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   Zotero restart does not produce duplicate entries.
 - MIT license.
 
-[Unreleased]: https://github.com/myshevchuk/zotero-jcode/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/myshevchuk/zotero-jcode/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/myshevchuk/zotero-jcode/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/myshevchuk/zotero-jcode/releases/tag/v1.0.0
