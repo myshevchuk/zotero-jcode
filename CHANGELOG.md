@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   in `publicationTitle`, so the action silently counted those items as
   no-match.
 - Stray trailing tabs on the `CPNAC-` row of the bundled TSV.
+- *Add Journal Code* no longer appears when the selection contains only
+  notes, attachments, or other non-regular items.
 
 ## [1.0.0] - 2026-05-20 - Initial release
 

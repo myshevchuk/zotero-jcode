@@ -68,7 +68,8 @@ function installIntoWindow(window) {
   log("installIntoWindow: menu item appended");
 
   const popupHandler = () => {
-    const count = window.ZoteroPane?.getSelectedItems?.().length ?? 0;
+    const items = window.ZoteroPane?.getSelectedItems?.() ?? [];
+    const count = items.filter((it) => it?.isRegularItem?.()).length;
     menuitem.hidden = !shouldShowMenu(count);
   };
   itemMenu.addEventListener("popupshowing", popupHandler);
