@@ -60,6 +60,11 @@ function installIntoWindow(window) {
   const menuitem = doc.createXULElement("menuitem");
   menuitem.id = MENUITEM_ID;
   menuitem.setAttribute("label", "Add Journal Code");
+  menuitem.className = "menuitem-iconic";
+  menuitem.setAttribute(
+    "image",
+    "chrome://jcode/content/content/icons/jcode.svg",
+  );
   menuitem.addEventListener("command", () => {
     log("menuitem: command fired");
     run(window, rootURIGlobal);

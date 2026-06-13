@@ -11,12 +11,13 @@ set -euo pipefail
 cd "$(dirname "$0")"
 BUILD=".build"
 rm -rf "$BUILD"
-mkdir -p "$BUILD/content" "$BUILD/data" "$BUILD/locale/en-US"
+mkdir -p "$BUILD/content/icons" "$BUILD/data" "$BUILD/locale/en-US"
 
 cp addon/manifest.json "$BUILD/"
 cp addon/prefs.js "$BUILD/"
 cp addon/content/prefs.xhtml "$BUILD/content/"
 cp addon/content/prefs-pane.js "$BUILD/content/"
+cp addon/content/icons/jcode.svg "$BUILD/content/icons/"
 cp addon/data/journal_titles.tsv "$BUILD/data/"
 cp addon/locale/en-US/jcode.ftl "$BUILD/locale/en-US/"
 

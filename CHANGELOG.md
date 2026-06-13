@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Hash (`#`) icon next to the *Add Journal Code* context-menu entry.
+
 ### Fixed
 
 - 23 journals whose names contain `&` (e.g. *ACS Applied Materials &
